@@ -1,0 +1,294 @@
+<!--  this is the format for the xml album library - Burl29 Mar 2019
+
+<?xml version="1.0"?>
+<collection>
+<album>
+<id>a0000</id>
+<path>s</path>
+<name>Greatest Hits 1974-1978</name>
+<artist>Steve Miller Band</artist>
+<cover>s/Steve Miller Band - Greatest Hits 1974-78.jpg</cover>
+<track><num>1</num><title>Swingtown</title><file>s/01 - Swingtown.mp3</file></track>
+<track><num>2</num><title>Jungle Love</title><file>s/02 - Jungle Love.mp3</file></track>
+<track><num>3</num><title>Take the Money and Run</title><file>s/03 - Take the Money and Run.mp3</file></track>
+<track><num>4</num><title>Rock N Me</title><file>s/04 - Rock N' Me.mp3</file></track>
+<track><num>5</num><title>Serenade</title><file>s/05 - Serenade.mp3</file></track>
+<track><num>6</num><title>True Fine Love</title><file>s/06 - True Fine Love.mp3</file></track>
+<track><num>7</num><title>The Stake</title><file>s/07 - The Stake.mp3</file></track>
+<track><num>8</num><title>The Joker</title><file>s/08 - The Joker.mp3</file></track>
+<track><num>9</num><title>Fly Like an Eagle</title><file>s/09 - Fly Like an Eagle.mp3</file></track>
+<track><num>10</num><title>Threshold</title><file>s/10 - Threshold.mp3</file></track>
+<track><num>11</num><title>Jet Airliner</title><file>s/11 - Jet Airliner.mp3</file></track>
+<track><num>12</num><title>Dance Dance Dance</title><file>s/12 - Dance Dance Dance.mp3</file></track>
+<track><num>13</num><title>Winter Time</title><file>s/13 - Winter Time.mp3</file></track>
+<track><num>14</num><title>Wild Mountain Honey</title><file>s/14 - Wild Mountain Honey.mp3</file></track>
+</album>
+</collection>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Albums</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ------------------------------------------------------------------------- -->
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+background-color: rgb(0, 0, 0); color: white;
+}
+
+.sidenav {
+  height: 100%;
+  width: 225px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+.main {
+  margin-left: 225px; /* Same as the width of the sidenav */
+  font-size: 14px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+  position: fixed;
+}
+#myAudio {
+  position: relative;
+  left: 0px;
+  width:500px;
+}
+div.tape_line_1 {
+  position: absolute;
+  top: 46px;
+  left: 136px;
+  color: blue;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  white-space: nowrap;
+}
+div.tape_line_2 {
+  position: absolute;
+  top: 68px;
+  left: 136px;
+  color: blue;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  white-space: nowrap;
+}
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#track_list th {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+#track_list td, #track_list th {
+  border: 1px solid #ddd;
+  padding: 1px;
+}
+#track_list tr:nth-child(even){background-color: #404040;}
+#track_list tr:nth-child(odd){background-color: #606060;}
+#track_list tr:hover {background-color: #003030;}
+tr.clicked {background-color: #ffffff;}
+#track_list {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+}
+#currentcover {
+position: absolute;
+left: 530px;
+top: 50px;
+width: 200px;
+height: 200px;
+box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.2), 0 0 30px 10px rgba(255, 255, 255, 0.19);
+}
+</style>
+<!-- ------------------------------------------------------------------------- -->
+</head>
+<body onload="ReadXML('albums.xml', 0, '')">
+
+<!-- ALBUM COVER LIST -->
+<div id="albumlist" class="sidenav">
+</div>
+
+<!-- MAIN SECTION WITH EMPTY ALBUM COVER-->  
+<div class="main">
+	<img id="gifx" src="audiocassette_static.png" alt=" ">
+	<img id="currentcover" src="" alt=" ">
+	<div class="tape_line_1" id="tl1"></div>
+	<div class="tape_line_2" id="tl2"></div>
+        <br>
+        <audio id="myAudio" controls>
+           <source src="x" type="audio/mpeg">Your browser does not support the audio element.</audio><br>
+        <!-- EMPTY TRACK LIST -->
+        <table id="track_list">
+            <colgroup>
+            <col width=50px>
+            <col width=500px>
+            </colgroup>  
+            <tr onclick="testfunc()"><th>Track</th><th>Title</th></tr>
+        </table>
+
+ </div>
+<!-- ------------------------------------------------------------------------- -->
+<script>
+
+//------------------ AUDIO SECTION-------------------------------
+// audio tool
+var aud = document.getElementById("myAudio");
+var tracks = [];
+var current_track;
+
+// select track and play
+function SelectTrack(n) {
+    var f, c;
+    f = tracks[n].file;
+    if (f == "") return;
+    current_track = n;
+    // highlight track in list
+    var els = document.getElementById("track_list").getElementsByTagName("tr");
+    for(var i=0;i<els.length;i++){
+       if ((n+1) == i) {
+           els[i].style.background = "white";  
+           els[i].style.color = "black";
+       } else {
+           els[i].style.background = "";
+           els[i].style.color = "";
+        }
+    }
+    aud.pause();
+    aud.src = f;
+    aud.load();
+    aud.play();
+};
+aud.onplaying = function() {
+	document.getElementById("gifx").src='audiocassette_anim.gif';
+};
+aud.onpause = function() {
+	document.getElementById("gifx").src='audiocassette_static.png';
+};
+aud.onended = function() {
+    // get next file
+    current_track = current_track + 1;
+    if (current_track < tracks.length) {
+	SelectTrack(current_track);
+    }
+};
+//------------------XML SECTION-------------------------------
+// sidebar album selection
+function SelectAlbum(fn, a_id) {
+  // read XML with the id
+  ReadXML('albums.xml', 1, a_id);
+  // reset audio
+  PlayTrack(0);
+};
+
+// xml area
+function ReadXML(file, mode, tid) {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+	if (mode == 1) {
+	   GetTrackList(this, tid);
+	} else {
+      	   GetAlbums(this);
+	}
+    }
+  };
+  xmlhttp.open("GET", file , true);
+  xmlhttp.send();
+}
+// fill the album cover section
+function GetAlbums(xml) {
+  var x, i, xmlDoc, table;
+  xmlDoc = xml.responseXML;
+  x = xmlDoc.getElementsByTagName("album");
+  for (i = 0; i < x.length; i++) { 
+    var a_cover = x[i].getElementsByTagName("cover")[0].childNodes[0].nodeValue;
+    var a_id = x[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
+    if (a_cover != "") {
+       // has a cover
+        table = "<img id=\"" + a_id + "\" src=\"" + a_cover + "\" onclick=\"SelectAlbum('" + a_cover + "', '" + a_id + "')\" width=100px height=100px alt=\"No Cover Art\"> ";
+  	document.getElementById("albumlist").innerHTML += table;
+    } else {
+       // no cover or id
+	print_r( "No cover for tag " + a_cover);
+    }
+  }
+}
+
+// create the track list and album info for the album
+function GetTrackList(xml, a_id) {
+  var x, i, j, xmlDoc, l, n, p, c;
+  xmlDoc = xml.responseXML;
+  // find the parent node of the album ID
+  x = xmlDoc.getElementsByTagName("id");
+  for (i=0; i<x.length; i++) {
+  	n = x[i].childNodes[0].nodeValue;
+	if (n == a_id) {
+            // get the parent node
+	    var w = x[i].parentNode;
+	    // get the cover name again
+	    c = w.getElementsByTagName("cover");
+	    p = c[0].childNodes[0].nodeValue;
+  	    document.getElementById("currentcover").src = p;
+	    // get title and artist for writing on cassette tape
+	    c = w.getElementsByTagName("artist");
+	    l = document.getElementById("tl1");
+	    l.innerText = decodeURIComponent(c[0].childNodes[0].nodeValue);
+	    c = w.getElementsByTagName("name");
+	    l = document.getElementById("tl2");
+	    l.innerText = decodeURIComponent(c[0].childNodes[0].nodeValue);
+            // get all the tracks
+	    var tl = document.getElementById("track_list");
+	    // delete all rows
+	    var rowCount = tl.rows.length; while(--rowCount) tl.deleteRow(rowCount); 
+	    tracks = [];
+	    c = w.getElementsByTagName("track");
+	    for (j=0; j<c.length; j++) {
+		var n = c[j].getElementsByTagName("num")[0].childNodes[0].nodeValue;
+		var ntitle = decodeURIComponent(c[j].getElementsByTagName("title")[0].childNodes[0].nodeValue);
+                var f = c[j].getElementsByTagName("file")[0].childNodes[0].nodeValue;
+  		var row = tl.insertRow(j+1);
+                var d = j;
+		row.onclick = function(d) {
+                    var dp;
+                    dp = d.currentTarget.rowIndex;
+		    SelectTrack(dp-1);
+		};
+         	var cell1 = row.insertCell(0);
+        	var cell2 = row.insertCell(1);
+        	cell1.innerHTML = n;
+        	cell2.innerHTML = ntitle;
+                tracks[j]= {title: ntitle, file: f};
+           }
+            SelectTrack(0);
+	    break;
+	}
+  }
+}
+
+</script>
+<!-- ------------------------------------------------------------------------- -->
+
+</body>
+</html>

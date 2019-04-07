@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<collection>
+<album>
+<id>a0002</id>
+<name>Greatest Hits</name>
+<artist>Santana</artist>
+<cover>./Santana - Greatest Hits/folder.jpg</cover>
+<track><num>1</num><title>Evil Ways</title><file>./Santana - Greatest Hits/01 - Evil Ways.mp3</file></track>
+<track><num>2</num><title>Jingo</title><file>./Santana - Greatest Hits/02 - Jingo.mp3</file></track>
+<track><num>3</num><title>Hope You're Feeling Better</title><file>./Santana - Greatest Hits/03 - Hope You're Feeling Better.mp3</file></track>
+<track><num>4</num><title>Samba Pa Ti</title><file>./Santana - Greatest Hits/04 - Samba Pa Ti.mp3</file></track>
+<track><num>5</num><title>Persuasion</title><file>./Santana - Greatest Hits/05 - Persuasion.mp3</file></track>
+<track><num>6</num><title>Black Magic Woman</title><file>./Santana - Greatest Hits/06 - Black Magic Woman.mp3</file></track>
+<track><num>7</num><title>Oye Como Va</title><file>./Santana - Greatest Hits/07 - Oye Como Va.mp3</file></track>
+<track><num>8</num><title>Everything's Coming Our Way</title><file>./Santana - Greatest Hits/08 - Everything's Coming Our Way.mp3</file></track>
+<track><num>9</num><title>Se A Cabo</title><file>./Santana - Greatest Hits/09 - Se A Cabo.mp3</file></track>
+<track><num>10</num><title>Everybody's Everything</title><file>./Santana - Greatest Hits/10 - Everybody's Everything.mp3</file></track>
+</album>
+<album>
+<id>a0039</id>
+<name>D%C3%A9j%C3%A0 Vu</name>
+<artist>Crosby, Stills, Nash %26 Young</artist>
+<cover>./Crosby Stills Nash %26 Young - Deja Vu/Crosby Stills Nash %26 Young - Deja Vu.jpg</cover>
+<track><num>1</num><title>Carry On</title><file>./Crosby Stills Nash %26 Young - Deja Vu/01 - Carry On.mp3</file></track>
+<track><num>2</num><title>Teach Your Children</title><file>./Crosby Stills Nash %26 Young - Deja Vu/02 - Teach Your Children.mp3</file></track>
+<track><num>3</num><title>Almost_Cut_My_Hair</title><file>./Crosby Stills Nash %26 Young - Deja Vu/03 - Almost_Cut_My_Hair.mp3</file></track>
+<track><num>4</num><title>Helpless</title><file>./Crosby Stills Nash %26 Young - Deja Vu/04 - Helpless.mp3</file></track>
+<track><num>5</num><title>Woodstock</title><file>./Crosby Stills Nash %26 Young - Deja Vu/05 - Woodstock.mp3</file></track>
+<track><num>6</num><title>D%C3%A9j%C3%A0 Vu</title><file>./Crosby Stills Nash %26 Young - Deja Vu/06 - Deja Vu.mp3</file></track>
+<track><num>7</num><title>Our House</title><file>./Crosby Stills Nash %26 Young - Deja Vu/07 - Our House.mp3</file></track>
+<track><num>8</num><title>4+20</title><file>./Crosby Stills Nash %26 Young - Deja Vu/08 - 4+20.mp3</file></track>
+<track><num>9</num><title>Country Girl</title><file>./Crosby Stills Nash %26 Young - Deja Vu/09 - Country Girl.mp3</file></track>
+<track><num>10</num><title>Everybody I Love You</title><file>./Crosby Stills Nash %26 Young - Deja Vu/10 - Everybody I Love You.mp3</file></track>
+</album>
+</collection>
+
